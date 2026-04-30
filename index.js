@@ -16,9 +16,13 @@ app.use('/api', couponRoutes);
 app.use('/api', addressRoutes);
 app.use('/api', authRoutes);
 
+const connectDB = require('./config/db');
+
 app.get('/', (req, res) => {
     res.send('Hello from fitmore server');
 });
+
+connectDB();
 
 app.listen(3000, () => {
     console.log('server running on 3000 port');

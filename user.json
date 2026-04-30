@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "username": "arjun",
+        "email": "arjun@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile1.jpg",
+        "phonenumber": "9876543210"
+    },
+    {
+        "id": 2,
+        "username": "rahul",
+        "email": "rahul@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile2.jpg",
+        "phonenumber": "9876543211"
+    },
+    {
+        "id": 3,
+        "username": "fahad",
+        "email": "fahad@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile3.jpg",
+        "phonenumber": "9876543212"
+    },
+    {
+        "id": 4,
+        "username": "nithin",
+        "email": "nithin@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile4.jpg",
+        "phonenumber": "9876543213"
+    },
+    {
+        "id": 5,
+        "username": "ajmal",
+        "email": "ajmal@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile5.jpg",
+        "phonenumber": "9876543214"
+    },
+    {
+        "id": 6,
+        "username": "suhail",
+        "email": "suhail@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile6.jpg",
+        "phonenumber": "9876543215"
+    },
+    {
+        "id": 7,
+        "username": "shahid",
+        "email": "shahid@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile7.jpg",
+        "phonenumber": "9876543216"
+    },
+    {
+        "id": 8,
+        "username": "anwar",
+        "email": "anwar@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile8.jpg",
+        "phonenumber": "9876543217"
+    },
+    {
+        "id": 9,
+        "username": "salman",
+        "email": "salman@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile9.jpg",
+        "phonenumber": "9876543218"
+    },
+    {
+        "id": 10,
+        "username": "yasir",
+        "email": "yasir@gmail.com",
+        "password": "123456",
+        "profile": "https://example.com/profile10.jpg",
+        "phonenumber": "9876543219"
+    }
+]
