@@ -17,13 +17,13 @@ exports.createUser = async (req, res) => {
   });
 
 
-  res.send({ message: 'User Added successfully', user });
+  res.send({ status: true, message: 'User Added successfully', user });
 };
 
 // GET ALL
 exports.getUsers = async (req, res) => {
   const users = await User.find();
-  res.send(users);
+  res.send({ status: true, data: users });
 };
 
 // GET ONE
@@ -32,7 +32,7 @@ exports.getUserById = async (req, res) => {
 
   if (!user) return res.status(404).send('User not found');
 
-  res.send(user);
+  res.send({ status: true, user });
 
 };
 
