@@ -4,7 +4,7 @@ let products = [];
 exports.createProduct = (req, res) => {
     const { title, description, image1, image2, image3, image4, price, category, active, productCount } = req.body;
     if (!title || !description || !price || !image1 || !image2 || !image3 || !image4 || !category || !active || !productCount) {
-        return res.send('All fields required');
+        return res.send({ status: false, message: 'All fields required' });
     }
     const product = {
         id: products.length + 1,
@@ -20,7 +20,7 @@ exports.createProduct = (req, res) => {
         productCount
     };
     products.push(product);
-    res.send({ message: "Product Added successfully" });
+    res.send({ status: true, message: "Product Added successfully" });
 }
 // Get All
 exports.getProducts = (req, res) => {
@@ -30,8 +30,8 @@ exports.getProducts = (req, res) => {
 exports.getProductById = (req, res) => {
     const id = parseInt(req.params.id);
     const product = products.find(p => p.id === id);
-    if (!product) return res.send('product not found');
-    res.send(product);
+    if (!product) return res.send({ status: false, message: 'product not found' });
+    res.send({ status: true, product });
 }
 //updateProduct
 exports.updateProduct = (req, res) => {
@@ -53,13 +53,13 @@ exports.updateProduct = (req, res) => {
     if (category) product.category = category;
     if (active) product.active = active;
     if (productCount) product.productCount = productCount;
-    res.send({ status: true, message: 'Successfully updated' })
+    res.send({ status: true, message: 'Successfully updated', product })
 }
 exports.deleteProduct = (req, res) => {
     const id = parseInt(req.params.id);
     const index = products.findIndex(p => p.id === id);
     if (index === -1) {
-        return res.send({ status: false, message: 'fail to delete' });
+        return res.send({ status: false, message: 'product not found' });
     }
     products.splice(index, 1);
     return res.send({ status: true, message: 'delete successfully' });

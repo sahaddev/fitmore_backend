@@ -14,12 +14,13 @@ exports.createCoupon = (req, res) => {
     coupons.push(coupon);
     res.send({
         status: true,
-        message: 'coupon created'
+        message: 'coupon created',
+        coupon
     });
 }
 
 exports.getCoupons = (req, res) => {
-    res.send(coupons);
+    res.send({ status: true, coupons });
 }
 
 exports.updateCoupon = (req, res) => {
@@ -35,7 +36,8 @@ exports.updateCoupon = (req, res) => {
     if (code) coupon.code = code;
     res.send({
         status: true,
-        message: 'coupon updated'
+        message: 'coupon updated',
+        coupon
     });
 }
 

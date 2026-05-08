@@ -16,7 +16,7 @@ exports.createAddress = (req, res) => {
         userId
     };
     addressList.push(address);
-    return res.send({ status: true, message: 'address created successfully' })
+    return res.send({ status: true, message: 'address created successfully', address })
 }
 exports.getAddresses = (req, res) => {
     return res.send({ status: true, data: addressList })
@@ -44,7 +44,7 @@ exports.updateAddress = (req, res) => {
     if (streetName) address.streetName = streetName;
     if (area) address.area = area;
     if (userId) address.userId = userId;
-    return res.send({ status: true, message: 'address updated successfully' })
+    return res.send({ status: true, message: 'address updated successfully', address })
 }
 exports.deleteAddress = (req, res) => {
     const id = parseInt(req.params.id);
