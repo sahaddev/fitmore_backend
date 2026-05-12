@@ -1,4 +1,4 @@
-let coupons = [];
+let Coupons = require('../models/couponModel');
 
 exports.createCoupon = (req, res) => {
     const { code, percentage, fixedAmount, title } = req.body;
@@ -18,7 +18,7 @@ exports.createCoupon = (req, res) => {
         percentage: percentage || null,
         fixedAmount: fixedAmount || null,
     }
-    coupons.push(coupon);
+    Coupons.push(coupon);
     res.send({
         status: true,
         message: 'coupon created successfully',
@@ -26,15 +26,16 @@ exports.createCoupon = (req, res) => {
     });
 }
 
-exports.getCoupons = (req, res) => {
-    res.send({ status: true, coupons });
+exports.getCoupons = async (req, res) => {
+    const coupons = await Coupons.find();
+    res.send({ status: true, datas: coupons });
 }
 
 exports.updateCoupon = (req, res) => {
     const id = parseInt(req.params.id);
     const { title, code, percentage, fixedAmount, description, expiry, limit, status } = req.body;
 
-    const coupon = coupons.find(c => c.id == id);
+    const coupon = Coupons.find(c => c.id == id);
     if (!coupon) return res.send({
         status: false,
         message: 'coupon not found'
@@ -56,12 +57,12 @@ exports.updateCoupon = (req, res) => {
 
 exports.deleteCoupon = (req, res) => {
     const id = parseInt(req.params.id);
-    const index = coupons.findIndex(c => c.id === id);
+    const index = Coupons.findIndex(c => c.id === id);
     if (!index) return res.send({
         status: false,
         message: 'coupon not found'
     });
-    coupons.splice(index, 1);
+    Coupons.splice(index, 1);
     res.send({
         status: true,
         message: 'coupon deleted'

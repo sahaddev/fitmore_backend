@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "title": "Welcome Offer",
+        "code": "WELCOME10",
+        "description": "Get 10% off on your first order",
+        "expiry": "2026-12-31T23:59:59.000Z",
+        "status": "active",
+        "limit": 100,
+        "couponCount": 25,
+        "percentage": 10,
+        "fixedAmount": 0
+    },
+    {
+        "id": 2,
+        "title": "Summer Sale",
+        "code": "SUMMER20",
+        "description": "Flat 20% discount on summer collection",
+        "expiry": "2026-08-15T23:59:59.000Z",
+        "status": "active",
+        "limit": 200,
+        "couponCount": 80,
+        "percentage": 20,
+        "fixedAmount": 0
+    },
+    {
+        "id": 3,
+        "title": "Flat ₹100 Off",
+        "code": "SAVE100",
+        "description": "Get ₹100 off on orders above ₹999",
+        "expiry": "2026-10-01T23:59:59.000Z",
+        "status": "active",
+        "limit": 150,
+        "couponCount": 40,
+        "percentage": 0,
+        "fixedAmount": 100
+    },
+    {
+        "id": 4,
+        "title": "Festival Offer",
+        "code": "FEST25",
+        "description": "Enjoy 25% off during festival season",
+        "expiry": "2026-11-10T23:59:59.000Z",
+        "status": "inactive",
+        "limit": 300,
+        "couponCount": 120,
+        "percentage": 25,
+        "fixedAmount": 0
+    },
+    {
+        "id": 5,
+        "title": "Mega Discount",
+        "code": "MEGA50",
+        "description": "Flat ₹500 off on premium products",
+        "expiry": "2026-09-20T23:59:59.000Z",
+        "status": "active",
+        "limit": 50,
+        "couponCount": 10,
+        "percentage": 0,
+        "fixedAmount": 500
+    },
+    {
+        "id": 6,
+        "title": "Weekend Deal",
+        "code": "WEEKEND15",
+        "description": "15% off on weekend purchases",
+        "expiry": "2026-07-30T23:59:59.000Z",
+        "status": "expired",
+        "limit": 100,
+        "couponCount": 100,
+        "percentage": 15,
+        "fixedAmount": 0
+    },
+    {
+        "id": 7,
+        "title": "Free Delivery",
+        "code": "FREEDEL",
+        "description": "Get free delivery with this coupon",
+        "expiry": "2026-12-01T23:59:59.000Z",
+        "status": "active",
+        "limit": 500,
+        "couponCount": 150,
+        "percentage": 0,
+        "fixedAmount": 50
+    },
+    {
+        "id": 8,
+        "title": "Flash Sale",
+        "code": "FLASH30",
+        "description": "30% instant discount for flash sale",
+        "expiry": "2026-06-25T23:59:59.000Z",
+        "status": "active",
+        "limit": 75,
+        "couponCount": 45,
+        "percentage": 30,
+        "fixedAmount": 0
+    },
+    {
+        "id": 9,
+        "title": "New Year Offer",
+        "code": "NEWYEAR40",
+        "description": "Celebrate with 40% off",
+        "expiry": "2027-01-01T23:59:59.000Z",
+        "status": "inactive",
+        "limit": 250,
+        "couponCount": 90,
+        "percentage": 40,
+        "fixedAmount": 0
+    },
+    {
+        "id": 10,
+        "title": "Special Cashback",
+        "code": "CASH200",
+        "description": "Flat ₹200 cashback on orders above ₹2000",
+        "expiry": "2026-10-31T23:59:59.000Z",
+        "status": "active",
+        "limit": 180,
+        "couponCount": 60,
+        "percentage": 0,
+        "fixedAmount": 200
+    }
+]

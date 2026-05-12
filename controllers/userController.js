@@ -26,7 +26,7 @@ exports.createUser = async (req, res) => {
 // GET ALL
 exports.getUsers = async (req, res) => {
   const users = await User.find();
-  res.send({ status: true, data: users });
+  res.send({ status: true, datas: users });
 };
 
 // GET ONE

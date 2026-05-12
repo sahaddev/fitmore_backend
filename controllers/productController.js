@@ -1,4 +1,4 @@
-let products = [];
+let Products = require("../models/productModel");
 
 //Create
 exports.createProduct = (req, res) => {
@@ -7,7 +7,7 @@ exports.createProduct = (req, res) => {
         return res.send({ status: false, message: 'All fields required' });
     }
     const product = {
-        id: products.length + 1,
+        id: Products.length + 1,
         title,
         sub_title,
         description,
@@ -20,17 +20,21 @@ exports.createProduct = (req, res) => {
         active,
         productCount
     };
-    products.push(product);
+    Products.push(product);
     res.send({ status: true, message: "Product Added successfully" });
 }
 // Get All
-exports.getProducts = (req, res) => {
-    res.send(products);
+exports.getProducts = async (req, res) => {
+    const products = await Products.find();
+    res.send({
+        status: true,
+        datas: products
+    });
 };
 // get single product 
 exports.getProductById = (req, res) => {
     const id = parseInt(req.params.id);
-    const product = products.find(p => p.id === id);
+    const product = Products.find(p => p.id === id);
     if (!product) return res.send({ status: false, message: 'product not found' });
     res.send({ status: true, product });
 }
@@ -40,7 +44,7 @@ exports.updateProduct = (req, res) => {
 
     const { title, description, image1, image2, image3, image4, price, category, active, productCount } = req.body;
 
-    const product = products.find(p => p.id === id);
+    const product = Products.find(p => p.id === id);
     if (!product) {
         return res.status(404).send({ status: false, message: 'product not found' });
     }
@@ -59,11 +63,11 @@ exports.updateProduct = (req, res) => {
 }
 exports.deleteProduct = (req, res) => {
     const id = parseInt(req.params.id);
-    const index = products.findIndex(p => p.id === id);
+    const index = Products.findIndex(p => p.id === id);
     if (index === -1) {
         return res.send({ status: false, message: 'product not found' });
     }
-    products.splice(index, 1);
+    Products.splice(index, 1);
     return res.send({ status: true, message: 'delete successfully' });
 
 }
