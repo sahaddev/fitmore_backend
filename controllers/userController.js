@@ -1,19 +1,22 @@
 const User = require('../models/userModel');
 // CREATE
 exports.createUser = async (req, res) => {
-  const { username, email, password, profile, phonenumber } = req.body;
+  const { username, email, password, profile_image, phone_number } = req.body;
 
-  if (!username || !email || !password || !profile || !phonenumber) {
+  if (!username || !email || !password) {
     return res.send({ status: false, message: 'All fields required' });
   }
 
   const user = await User.create({
     id: User.length + 1,
-    username,
-    email,
-    password,
-    profile,
-    phonenumber
+    username: username,
+    email: email,
+    password: password,
+    profile_image: profile_image || null,
+    phonenumber: phone_number || null,
+    ordersCount: 0,
+    active: true,
+    created_at: new Date().toISOString(),
   });
 
 

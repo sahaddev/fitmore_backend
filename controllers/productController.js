@@ -2,13 +2,14 @@ let products = [];
 
 //Create
 exports.createProduct = (req, res) => {
-    const { title, description, image1, image2, image3, image4, price, category, active, productCount } = req.body;
-    if (!title || !description || !price || !image1 || !image2 || !image3 || !image4 || !category || !active || !productCount) {
+    const { title, description, image1, image2, image3, image4, price, category, active, productCount, sub_title } = req.body;
+    if (!title || !description || !price || !image1 || !image2 || !image3 || !image4 || !category || !active || !productCount || !sub_title) {
         return res.send({ status: false, message: 'All fields required' });
     }
     const product = {
         id: products.length + 1,
         title,
+        sub_title,
         description,
         image1,
         image2,
@@ -45,6 +46,7 @@ exports.updateProduct = (req, res) => {
     }
     if (title) product.title = title;
     if (description) product.description = description;
+    if (sub_title) product.sub_title = sub_title;
     if (image1) product.image1 = image1;
     if (image2) product.image2 = image2;
     if (image3) product.image3 = image3;

@@ -1,20 +1,27 @@
 let coupons = [];
 
 exports.createCoupon = (req, res) => {
-    const { title, code } = req.body;
-    if (!title || !code) return res.send({
+    const { code, percentage, fixedAmount, title } = req.body;
+    if (!code || !title) return res.send({
         status: false,
-        message: 'coupon create fail'
+        message: 'All Fields required'
     });
     const coupon = {
         id: coupons.length + 1,
-        title,
-        code
+        title: title,
+        code: code,
+        description: null,
+        expiry: null,
+        status: 'active',
+        limit: 100,
+        couponCount: 0,
+        percentage: percentage || null,
+        fixedAmount: fixedAmount || null,
     }
     coupons.push(coupon);
     res.send({
         status: true,
-        message: 'coupon created',
+        message: 'coupon created successfully',
         coupon
     });
 }
@@ -25,7 +32,7 @@ exports.getCoupons = (req, res) => {
 
 exports.updateCoupon = (req, res) => {
     const id = parseInt(req.params.id);
-    const { title, code } = req.body;
+    const { title, code, percentage, fixedAmount, description, expiry, limit, status } = req.body;
 
     const coupon = coupons.find(c => c.id == id);
     if (!coupon) return res.send({
@@ -34,9 +41,15 @@ exports.updateCoupon = (req, res) => {
     });
     if (title) coupon.title = title;
     if (code) coupon.code = code;
+    if (percentage) coupon.percentage = percentage;
+    if (fixedAmount) coupon.fixedAmount = fixedAmount;
+    if (description) coupon.description = description;
+    if (expiry) coupon.expiry = expiry;
+    if (limit) coupon.limit = limit;
+    if (status) coupon.status = status;
     res.send({
         status: true,
-        message: 'coupon updated',
+        message: 'coupon updated successfully',
         coupon
     });
 }

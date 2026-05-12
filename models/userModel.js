@@ -5,8 +5,11 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    profile: String,
-    phonenumber: String,
+    profile_image: String,
+    phone_number: String,
+    ordersCount: Number,
+    active: Boolean,
+    created_at: String,
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
