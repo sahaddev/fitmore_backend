@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { authMiddleware } = require('../middleware/authMiddleware');
 
 const {
     createAddress,
@@ -9,10 +10,10 @@ const {
     deleteAddress
 } = require('../controllers/addressController');
 
-router.post('/address', createAddress);
-router.get('/addresses', getAddresses);
-router.get('/address/:id', getAddressById);
-router.put('/address/:id', updateAddress);
-router.delete('/address/:id', deleteAddress);
+router.post('/address', authMiddleware, createAddress);
+router.get('/addresses', authMiddleware, getAddresses);
+router.get('/address/:id', authMiddleware, getAddressById);
+router.put('/address/:id', authMiddleware, updateAddress);
+router.delete('/address/:id', authMiddleware, deleteAddress);
 
 module.exports = router;
