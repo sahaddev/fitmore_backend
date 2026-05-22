@@ -20,9 +20,6 @@ exports.createUser = async (req, res) => {
     active: true,
     created_at: new Date().toISOString(),
   });
-
-
-  console.log('createUser status: true');
   res.send({ status: true, message: 'User Added successfully', user });
 };
 

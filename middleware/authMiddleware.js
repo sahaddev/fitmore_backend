@@ -10,7 +10,15 @@ exports.authMiddleware = (req, res, next) => {
         });
     }
 
-    const token = authHeader.split(' ')[1];
+    let token;
+
+    if (authHeader.startsWith('Bearer ')) {
+        token = authHeader.split(' ')[1];
+
+    } else {
+        token = authHeader;
+    }
+
 
     try {
         const decoded = verifyToken(token);
