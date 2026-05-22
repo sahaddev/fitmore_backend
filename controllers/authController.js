@@ -26,18 +26,37 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) {
-        return res.send({ status: false, message: 'email and password are required' });
-    }
-    const user = users.find(u => u.email === email);
-    if (!user) {
-        return res.send({ status: false, message: 'user not found' });
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.send({ status: false, message: 'invalid Token' });
-    }
-    const token = generateToken(user);
-    return res.send({ status: true, message: 'user login successfully', token: token });
 
-}
+    if (!email || !password) {
+        return res.send({
+            status: false,
+            message: 'Email and password are required'
+        });
+    }
+
+    const user = users.find(u => u.email === email);
+
+    if (!user) {
+        return res.send({
+            status: false,
+            message: 'User not found'
+        });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+        return res.send({
+            status: false,
+            message: 'Invalid password'
+        });
+    }
+
+    const token = generateToken(user);
+
+    return res.send({
+        status: true,
+        message: 'User login successfully',
+        token,
+    });
+};

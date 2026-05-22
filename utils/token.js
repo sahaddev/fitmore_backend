@@ -1,13 +1,17 @@
 const jwt = require('jsonwebtoken');
 
-const SECRET = 'mysecretkey';
+const SECRET = 'your_secret_key_here';
 
-exports.generateToken = (user) => {
+const generateToken = (user) => {
     return jwt.sign({
         id: user.id, email: user.email
-    }, SECRET);
+    }, SECRET, { expiresIn: '1d' });
 };
 
-exports.verifyToken = (token) => {
+const verifyToken = (token) => {
     return jwt.verify(token, SECRET);
+}
+
+module.exports = {
+    generateToken, verifyToken,
 }
