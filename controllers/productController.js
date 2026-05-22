@@ -50,10 +50,13 @@ exports.getProductById = async (req, res) => {
 }
 //updateProduct
 exports.updateProduct = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.id || req.query.id;
+    if (!id) {
+        return res.status(400).send({ status: false, message: 'ID is required' });
+    }
 
     try {
-        const product = await Products.findOneAndUpdate(id, req.body, { new: true });
+        const product = await Products.findOneAndUpdate({ id: id }, req.body, { new: true });
         if (!product) {
             return res.status(404).send({ status: false, message: 'product not found' });
         }
@@ -63,9 +66,12 @@ exports.updateProduct = async (req, res) => {
     }
 }
 exports.deleteProduct = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.id || req.query.id;
+    if (!id) {
+        return res.status(400).send({ status: false, message: 'ID is required' });
+    }
     try {
-        const product = await Products.findOneAndDelete(id);
+        const product = await Products.findOneAndDelete({ id: id });
         if (!product) {
             return res.status(404).send({ status: false, message: 'product not found' });
         }

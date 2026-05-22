@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
         return res.send({ status: false, message: 'All fields required' });
     }
 
-    const alredythere = User.findOne({ email });
+    const alredythere = await User.findOne({ email });
     if (alredythere) {
         return res.send({ status: false, message: 'User Already exists' });
     }
@@ -89,7 +89,7 @@ exports.login = async (req, res) => {
             message: 'User login successfully',
             token,
             user: {
-                id: user._id,
+                id: user.id,
                 username: user.username,
                 email: user.email,
             }

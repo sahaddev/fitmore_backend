@@ -6,6 +6,11 @@ exports.createCoupon = async (req, res) => {
         status: false,
         message: 'All Fields required'
     });
+    const alredythere = await Coupons.findOne({ code: code });
+    if (alredythere) {
+        return res.send({ status: false, message: 'Coupon Already exists in same code' });
+    }
+
     const couponCount = await Coupons.countDocuments();
     const coupon = await Coupons.create({
         id: couponCount + 1,
@@ -33,10 +38,13 @@ exports.getCoupons = async (req, res) => {
 
 // UPDATE
 exports.updateCoupon = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.id || req.query.id;
+    if (!id) {
+        return res.status(400).send({ status: false, message: 'ID is required' });
+    }
 
     try {
-        const coupon = await Coupons.findOneAndUpdate(id, req.body, { new: true });
+        const coupon = await Coupons.findOneAndUpdate({ id: id }, req.body, { new: true });
         if (!coupon) {
             return res.status(404).send({ status: false, message: 'Coupon not found' });
         }
@@ -67,9 +75,12 @@ exports.getCouponById = async (req, res) => {
 
 // DELETE
 exports.deleteCoupon = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.id || req.query.id;
+    if (!id) {
+        return res.status(400).send({ status: false, message: 'ID is required' });
+    }
     try {
-        const coupon = await Coupons.findOneAndDelete(id);
+        const coupon = await Coupons.findOneAndDelete({ id: id });
         if (!coupon) {
             return res.status(404).send({ status: false, message: 'Coupon not found' });
         }
