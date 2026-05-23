@@ -6,12 +6,12 @@ const User = require('../models/userModel');
 exports.register = async (req, res) => {
     const { username, email, password, phonenumber } = req.body;
     if (!username || !email || !password || !phonenumber) {
-        return res.send({ status: false, message: 'All fields required' });
+        return res.status(400).send({ status: false, message: 'All fields required' });
     }
 
     const alredythere = await User.findOne({ email });
     if (alredythere) {
-        return res.send({ status: false, message: 'User Already exists' });
+        return res.status(400).send({ status: false, message: 'User Already exists' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
     // remove password safely
     const { password: _, ...userWithoutPassword } = user;
 
-    res.send({ status: true, message: 'User Added successfully', userWithoutPassword });
+    res.status(201).send({ status: true, message: 'User Added successfully', userWithoutPassword });
 }
 
 
@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
 
         // check empty fields
         if (!email || !password) {
-            return res.send({
+            return res.status(400).send({
                 status: false,
                 message: 'Email and password are required'
             });
@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(email)) {
-            return res.send({
+            return res.status(400).send({
                 status: false,
                 message: 'Please enter a valid email'
             });
@@ -62,7 +62,7 @@ exports.login = async (req, res) => {
         });
 
         if (!user) {
-            return res.send({
+            return res.status(404).send({
                 status: false,
                 message: 'User not found'
             });
@@ -75,7 +75,7 @@ exports.login = async (req, res) => {
         );
 
         if (!isMatch) {
-            return res.send({
+            return res.status(401).send({
                 status: false,
                 message: 'Invalid password'
             });
@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
         // generate token
         const token = generateToken(user);
 
-        return res.send({
+        return res.status(200).send({
             status: true,
             message: 'User login successfully',
             token,
@@ -96,10 +96,7 @@ exports.login = async (req, res) => {
         });
 
     } catch (error) {
-
-        console.log(error);
-
-        return res.send({
+        return res.status(500).send({
             status: false,
             message: 'Server Error'
         });

@@ -4,13 +4,13 @@ exports.createUser = async (req, res) => {
   const { username, email, password, profile_image, phone_number } = req.body;
 
   if (!username || !email || !password) {
-    return res.send({ status: false, message: 'All fields required' });
+    return res.status(400).send({ status: false, message: 'All fields required' });
   }
 
 
   const alredythere = await User.findOne({ email });
   if (alredythere) {
-    return res.send({ status: false, message: 'User Already exists' });
+    return res.status(400).send({ status: false, message: 'User Already exists' });
   }
 
   const userCount = await User.countDocuments();
@@ -29,13 +29,13 @@ exports.createUser = async (req, res) => {
   const userResponse = user.toObject();
   delete userResponse.password;
 
-  res.send({ status: true, message: 'User Added successfully', userResponse });
+  res.status(201).send({ status: true, message: 'User Added successfully', userResponse });
 };
 
 // GET ALL USERS
 exports.getUsers = async (req, res) => {
   const users = await User.find();
-  res.send({ status: true, datas: users });
+  res.status(200).send({ status: true, datas: users });
 };
 
 // GET ONE USER BY ID
@@ -53,7 +53,7 @@ exports.getUserById = async (req, res) => {
     if (!user) {
       return res.status(404).send({ status: false, message: 'User not found' });
     }
-    res.send({ status: true, user });
+    res.status(200).send({ status: true, user });
   } catch (error) {
     res.status(400).send({ status: false, message: 'Invalid ID format or User not found' });
   }
@@ -73,7 +73,7 @@ exports.updateUser = async (req, res) => {
     }
     const userResponse = user.toObject();
     delete userResponse.password;
-    res.send({ status: true, userResponse });
+    res.status(200).send({ status: true, userResponse });
   } catch (error) {
     res.status(400).send({ status: false, message: 'Invalid ID format or User not found' });
   }
@@ -90,7 +90,7 @@ exports.deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).send({ status: false, message: 'User not found' });
     }
-    res.send({ status: true, message: 'Deleted successfully' });
+    res.status(200).send({ status: true, message: 'Deleted successfully' });
   } catch (error) {
     res.status(400).send({ status: false, message: 'Invalid ID format or User not found' });
   }

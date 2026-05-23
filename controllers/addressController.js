@@ -1,8 +1,11 @@
 let addressList = []
+
+
+// Create Address
 exports.createAddress = (req, res) => {
     const { pincode, city, state, country, buildingName, streetName, area, userId } = req.body;
     if (!pincode || !city || !state || !country || !buildingName || !streetName || !area || !userId) {
-        return res.send({ status: false, message: 'all fields required' })
+        return res.status(400).send({ status: false, message: 'All fields required' })
     }
     const address = {
         id: addressList.length + 1,
@@ -16,25 +19,31 @@ exports.createAddress = (req, res) => {
         userId
     };
     addressList.push(address);
-    return res.send({ status: true, message: 'address created successfully', address })
+    return res.status(201).send({ status: true, message: 'address created successfully', address })
 }
+
+// Get All Addresses
 exports.getAddresses = (req, res) => {
-    return res.send({ status: true, data: addressList })
+    return res.status(200).send({ status: true, data: addressList })
 }
+
+// Get Address By ID
 exports.getAddressById = (req, res) => {
     const id = parseInt(req.params.id);
     const address = addressList.find(a => a.id === id);
     if (!address) {
-        return res.send({ status: false, message: 'address not found' })
+        return res.status(404).send({ status: false, message: 'address not found' })
     }
-    return res.send({ status: true, data: address })
+    return res.status(200).send({ status: true, data: address })
 }
+
+// Update Address
 exports.updateAddress = (req, res) => {
     const id = parseInt(req.params.id);
     const { pincode, city, state, country, buildingName, streetName, area, userId } = req.body;
     const address = addressList.find(a => a.id === id);
     if (!address) {
-        return res.send({ status: false, message: 'address not found' })
+        return res.status(404).send({ status: false, message: 'address not found' })
     }
     if (pincode) address.pincode = pincode;
     if (city) address.city = city;
@@ -44,16 +53,18 @@ exports.updateAddress = (req, res) => {
     if (streetName) address.streetName = streetName;
     if (area) address.area = area;
     if (userId) address.userId = userId;
-    return res.send({ status: true, message: 'address updated successfully', address })
+    return res.status(200).send({ status: true, message: 'address updated successfully', address })
 }
+
+// Delete Address
 exports.deleteAddress = (req, res) => {
     const id = parseInt(req.params.id);
     const index = addressList.findIndex(a => a.id === id);
     if (index === -1) {
-        return res.send({ status: false, message: 'address not found' })
+        return res.status(404).send({ status: false, message: 'address not found' })
     }
     addressList.splice(index, 1);
-    return res.send({ status: true, message: 'address deleted successfully' })
+    return res.status(200).send({ status: true, message: 'address deleted successfully' })
 }
 
 
