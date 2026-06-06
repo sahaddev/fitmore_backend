@@ -1,70 +1,102 @@
-let addressList = []
-
+let Address = require("../models/addressModel");
 
 // Create Address
-exports.createAddress = (req, res) => {
-    const { pincode, city, state, country, buildingName, streetName, area, userId } = req.body;
-    if (!pincode || !city || !state || !country || !buildingName || !streetName || !area || !userId) {
-        return res.status(400).send({ status: false, message: 'All fields required' })
+exports.createAddress = async (req, res) => {
+    const { pincode, city, state, country, build_name, street_name, area, user_id } = req.body;
+    if (!pincode || !city || !state || !country || !build_name || !street_name || !area || !user_id) {
+        return res.status(400).send({ status: false, message: 'All fields required' });
     }
-    const address = {
-        id: addressList.length + 1,
+    const count = await Address.countDocuments();
+    const address = await Address.create({
+        id: count + 1,
         pincode,
         city,
         state,
         country,
-        buildingName,
-        streetName,
+        build_name,
+        street_name,
         area,
-        userId
-    };
-    addressList.push(address);
-    return res.status(201).send({ status: true, message: 'address created successfully', address })
+        user_id
+    });
+    res.status(201).send({ status: true, message: "address created successfully", address });
 }
 
 // Get All Addresses
-exports.getAddresses = (req, res) => {
-    return res.status(200).send({ status: true, data: addressList })
-}
+exports.getAddresses = async (req, res) => {
+    const userId = req.params.user_id || req.query.user_id;
+
+    let query = {};
+    if (userId) {
+        query = { user_id: Number(userId) };
+    }
+
+    try {
+        const addresses = await Address.find(query);
+        res.status(200).send({
+            status: true,
+            datas: addresses
+        });
+    } catch (error) {
+        res.status(400).send({ status: false, message: 'Error fetching addresses' });
+    }
+};
 
 // Get Address By ID
-exports.getAddressById = (req, res) => {
-    const id = parseInt(req.params.id);
-    const address = addressList.find(a => a.id === id);
-    if (!address) {
-        return res.status(404).send({ status: false, message: 'address not found' })
+exports.getAddressById = async (req, res) => {
+    const id = req.params.id || req.query.id;
+
+    if (!id) {
+        return res.status(400).send({ status: false, message: 'ID is required' });
     }
-    return res.status(200).send({ status: true, data: address })
+    const query = !isNaN(id) ? { id: Number(id) } : { _id: id };
+    try {
+        const address = await Address.findOne(query);
+        if (!address) return res.status(404).send({ status: false, message: 'address not found' });
+        res.status(200).send({ status: true, data: address });
+    } catch (error) {
+        res.status(400).send({ status: false, message: 'Invalid ID format or address not found' });
+    }
 }
 
 // Update Address
-exports.updateAddress = (req, res) => {
-    const id = parseInt(req.params.id);
-    const { pincode, city, state, country, buildingName, streetName, area, userId } = req.body;
-    const address = addressList.find(a => a.id === id);
-    if (!address) {
-        return res.status(404).send({ status: false, message: 'address not found' })
+exports.updateAddress = async (req, res) => {
+    const id = req.params.id || req.query.id;
+    if (!id) {
+        return res.status(400).send({ status: false, message: 'ID is required' });
     }
-    if (pincode) address.pincode = pincode;
-    if (city) address.city = city;
-    if (state) address.state = state;
-    if (country) address.country = country;
-    if (buildingName) address.buildingName = buildingName;
-    if (streetName) address.streetName = streetName;
-    if (area) address.area = area;
-    if (userId) address.userId = userId;
-    return res.status(200).send({ status: true, message: 'address updated successfully', address })
+
+    const query = !isNaN(id) ? { id: Number(id) } : { _id: id };
+    try {
+        // Remove _id and id from body so we don't try to update immutable fields
+        const updateData = { ...req.body };
+        delete updateData._id;
+        delete updateData.id;
+
+        const address = await Address.findOneAndUpdate(query, updateData, { returnDocument: 'after' });
+        if (!address) {
+            return res.status(404).send({ status: false, message: 'address not found' });
+        }
+        res.status(200).send({ status: true, message: 'address updated successfully', address });
+    } catch (error) {
+        res.status(400).send({ status: false, message: 'Invalid ID format or address not found', error: error.message });
+    }
 }
 
 // Delete Address
-exports.deleteAddress = (req, res) => {
-    const id = parseInt(req.params.id);
-    const index = addressList.findIndex(a => a.id === id);
-    if (index === -1) {
-        return res.status(404).send({ status: false, message: 'address not found' })
+exports.deleteAddress = async (req, res) => {
+    const id = req.params.id || req.query.id || req.body.id || req.body._id;
+    if (!id) {
+        return res.status(400).send({ status: false, message: 'ID is required' });
     }
-    addressList.splice(index, 1);
-    return res.status(200).send({ status: true, message: 'address deleted successfully' })
+
+    const query = !isNaN(id) ? { id: Number(id) } : { _id: id };
+    try {
+        const address = await Address.findOneAndDelete(query);
+        if (!address) {
+            return res.status(404).send({ status: false, message: 'address not found' });
+        }
+        res.status(200).send({ status: true, message: 'address deleted successfully' });
+    } catch (error) {
+        res.status(400).send({ status: false, message: 'Invalid ID format or address not found' });
+    }
 }
-
-

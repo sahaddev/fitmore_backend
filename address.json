@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "pincode": 670141,
+        "city": "Taliparamba",
+        "state": "Kerala",
+        "country": "India",
+        "build_name": "Green Villa",
+        "street_name": "Main Road",
+        "area": "Manna",
+        "user_id": 101
+    },
+    {
+        "id": 2,
+        "pincode": 682001,
+        "city": "Kochi",
+        "state": "Kerala",
+        "country": "India",
+        "build_name": "Ocean Heights",
+        "street_name": "MG Road",
+        "area": "Ernakulam",
+        "user_id": 102
+    },
+    {
+        "id": 3,
+        "pincode": 695001,
+        "city": "Thiruvananthapuram",
+        "state": "Kerala",
+        "country": "India",
+        "build_name": "Sky Residency",
+        "street_name": "Statue Road",
+        "area": "Palayam",
+        "user_id": 103
+    },
+    {
+        "id": 4,
+        "pincode": 673001,
+        "city": "Kozhikode",
+        "state": "Kerala",
+        "country": "India",
+        "build_name": "Blue Nest",
+        "street_name": "Beach Road",
+        "area": "Vellayil",
+        "user_id": 104
+    },
+    {
+        "id": 5,
+        "pincode": 560001,
+        "city": "Bangalore",
+        "state": "Karnataka",
+        "country": "India",
+        "build_name": "Tech Park Residency",
+        "street_name": "Brigade Road",
+        "area": "Ashok Nagar",
+        "user_id": 105
+    },
+    {
+        "id": 6,
+        "pincode": 600001,
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "build_name": "Sun Towers",
+        "street_name": "Anna Salai",
+        "area": "Mount Road",
+        "user_id": 106
+    },
+    {
+        "id": 7,
+        "pincode": 400001,
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India",
+        "build_name": "Sea View Apartments",
+        "street_name": "Marine Drive",
+        "area": "Churchgate",
+        "user_id": 107
+    },
+    {
+        "id": 8,
+        "pincode": 700001,
+        "city": "Kolkata",
+        "state": "West Bengal",
+        "country": "India",
+        "build_name": "Royal Residency",
+        "street_name": "Park Street",
+        "area": "Central Kolkata",
+        "user_id": 108
+    },
+    {
+        "id": 9,
+        "pincode": 110001,
+        "city": "New Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "build_name": "Capital Heights",
+        "street_name": "Connaught Place",
+        "area": "Rajiv Chowk",
+        "user_id": 109
+    },
+    {
+        "id": 10,
+        "pincode": 500001,
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "country": "India",
+        "build_name": "Pearl Residency",
+        "street_name": "Abids Road",
+        "area": "Abids",
+        "user_id": 110
+    }
+]
