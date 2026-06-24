@@ -1,0 +1,34 @@
+[
+    {
+        "userId": 1,
+        "title": "FitMore Store",
+        "message": "Hi Caitlyn Margusity, your pickup order is now ready!",
+        "subText": "Order #48291 • Ready for pickup",
+        "timeString": "10m ago",
+        "isRead": false
+    },
+    {
+        "userId": 1,
+        "title": "Summer Sale",
+        "message": "Get 50% off on all men's sportswear this weekend!",
+        "subText": "Use code SUMMER50 at checkout",
+        "timeString": "2h ago",
+        "isRead": true
+    },
+    {
+        "userId": 1,
+        "title": "Order Shipped",
+        "message": "Your order #48290 has been shipped and is on its way.",
+        "subText": "Track your shipment in the orders tab",
+        "timeString": "1d ago",
+        "isRead": true
+    },
+    {
+        "userId": 2,
+        "title": "Welcome to FitMore",
+        "message": "Thanks for joining us! Complete your profile to get personalized recommendations.",
+        "subText": "Profile setup • 2 mins",
+        "timeString": "2d ago",
+        "isRead": true
+    }
+]

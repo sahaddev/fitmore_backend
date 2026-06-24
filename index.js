@@ -11,6 +11,7 @@ const couponRoutes = require('./routes/couponRoutes');
 const addressRoutes = require('./routes/addressRoutes');
 const authRoutes = require('./routes/authRoutes');
 const bannerRoutes = require('./routes/bannerRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
 
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
@@ -18,6 +19,7 @@ app.use('/api', couponRoutes);
 app.use('/api', addressRoutes);
 app.use('/api', authRoutes);
 app.use('/api', bannerRoutes);
+app.use('/api', notificationRoutes);
 
 const connectDB = require('./config/db');
 
