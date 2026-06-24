@@ -10,12 +10,14 @@ const productRoutes = require('./routes/productRoutes');
 const couponRoutes = require('./routes/couponRoutes');
 const addressRoutes = require('./routes/addressRoutes');
 const authRoutes = require('./routes/authRoutes');
+const bannerRoutes = require('./routes/bannerRoutes');
 
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
 app.use('/api', couponRoutes);
 app.use('/api', addressRoutes);
 app.use('/api', authRoutes);
+app.use('/api', bannerRoutes);
 
 const connectDB = require('./config/db');
 

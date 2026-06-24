@@ -1,6 +1,7 @@
 let Coupons = require('../models/couponModel');
 
 exports.createCoupon = async (req, res) => {
+    console.log("-> couponController -> createCoupon");
     const { code, percentage, fixedAmount, title } = req.body;
     if (!code || !title) return res.status(400).send({
         status: false,
@@ -32,12 +33,14 @@ exports.createCoupon = async (req, res) => {
 }
 
 exports.getCoupons = async (req, res) => {
+    console.log("-> couponController -> getCoupons");
     const coupons = await Coupons.find();
     res.status(200).send({ status: true, datas: coupons });
 }
 
 // UPDATE
 exports.updateCoupon = async (req, res) => {
+    console.log("-> couponController -> updateCoupon");
     const id = req.params.id || req.query.id;
     if (!id) {
         return res.status(400).send({ status: false, message: 'ID is required' });
@@ -56,6 +59,7 @@ exports.updateCoupon = async (req, res) => {
 
 // GET ONE Coupons BY ID
 exports.getCouponById = async (req, res) => {
+    console.log("-> couponController -> getCouponById");
     const id = req.params.id || req.query.id;
 
     if (!id) {
@@ -75,6 +79,7 @@ exports.getCouponById = async (req, res) => {
 
 // DELETE
 exports.deleteCoupon = async (req, res) => {
+    console.log("-> couponController -> deleteCoupon");
     const id = req.params.id || req.query.id;
     if (!id) {
         return res.status(400).send({ status: false, message: 'ID is required' });

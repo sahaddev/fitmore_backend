@@ -2,6 +2,7 @@ let Address = require("../models/addressModel");
 
 // Create Address
 exports.createAddress = async (req, res) => {
+    console.log("-> addressController -> createAddress");
     const { pincode, city, state, country, build_name, street_name, area, user_id } = req.body;
     if (!pincode || !city || !state || !country || !build_name || !street_name || !area || !user_id) {
         return res.status(400).send({ status: false, message: 'All fields required' });
@@ -23,6 +24,7 @@ exports.createAddress = async (req, res) => {
 
 // Get All Addresses
 exports.getAddresses = async (req, res) => {
+    console.log("-> addressController -> getAddresses");
     const userId = req.params.user_id || req.query.user_id;
 
     let query = {};
@@ -43,6 +45,7 @@ exports.getAddresses = async (req, res) => {
 
 // Get Address By ID
 exports.getAddressById = async (req, res) => {
+    console.log("-> addressController -> getAddressById");
     const id = req.params.id || req.query.id;
 
     if (!id) {
@@ -60,6 +63,7 @@ exports.getAddressById = async (req, res) => {
 
 // Update Address
 exports.updateAddress = async (req, res) => {
+    console.log("-> addressController -> updateAddress");
     const id = req.params.id || req.query.id;
     if (!id) {
         return res.status(400).send({ status: false, message: 'ID is required' });
@@ -84,6 +88,7 @@ exports.updateAddress = async (req, res) => {
 
 // Delete Address
 exports.deleteAddress = async (req, res) => {
+    console.log("-> addressController -> deleteAddress");
     const id = req.params.id || req.query.id || req.body.id || req.body._id;
     if (!id) {
         return res.status(400).send({ status: false, message: 'ID is required' });

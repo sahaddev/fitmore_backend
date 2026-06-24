@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 
 
 exports.register = async (req, res) => {
+    console.log("-> authController -> register");
     const { username, email, password, phonenumber } = req.body;
     if (!username || !email || !password || !phonenumber) {
         return res.status(400).send({ status: false, message: 'All fields required' });
@@ -34,6 +35,7 @@ exports.register = async (req, res) => {
 
 
 exports.login = async (req, res) => {
+    console.log("-> authController -> login");
     try {
 
         const { email, password } = req.body;

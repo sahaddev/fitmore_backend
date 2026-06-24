@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 // CREATE
 exports.createUser = async (req, res) => {
+  console.log("-> userController -> createUser");
   const { username, email, password, profile_image, phone_number } = req.body;
 
   if (!username || !email || !password) {
@@ -34,12 +35,14 @@ exports.createUser = async (req, res) => {
 
 // GET ALL USERS
 exports.getUsers = async (req, res) => {
+  console.log("-> userController -> getUsers");
   const users = await User.find();
   res.status(200).send({ status: true, datas: users });
 };
 
 // GET ONE USER BY ID
 exports.getUserById = async (req, res) => {
+  console.log("-> userController -> getUserById");
   const id = req.params.id || req.query.id;
 
   if (!id) {
@@ -61,6 +64,7 @@ exports.getUserById = async (req, res) => {
 
 // UPDATE
 exports.updateUser = async (req, res) => {
+  console.log("-> userController -> updateUser");
   const id = req.params.id || req.query.id;
   if (!id) {
     return res.status(400).send({ status: false, message: 'ID is required' });
@@ -81,6 +85,7 @@ exports.updateUser = async (req, res) => {
 
 // DELETE
 exports.deleteUser = async (req, res) => {
+  console.log("-> userController -> deleteUser");
   const id = req.params.id || req.query.id;
   if (!id) {
     return res.status(400).send({ status: false, message: 'ID is required' });

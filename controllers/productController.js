@@ -2,6 +2,7 @@ let Products = require("../models/productModel");
 
 //Create
 exports.createProduct = async (req, res) => {
+    console.log("-> productController -> createProduct");
     const { title, description, image1, image2, image3, image4, price, category, active, productCount, sub_title } = req.body;
     if (!title || !description || !price || !image1 || !image2 || !image3 || !image4 || !category || !active || !productCount || !sub_title) {
         return res.status(400).send({ status: false, message: 'All fields required' });
@@ -25,7 +26,23 @@ exports.createProduct = async (req, res) => {
 }
 // Get All
 exports.getProducts = async (req, res) => {
-    const products = await Products.find();
+    console.log("-> productController -> getProducts");
+    
+    const { search, category } = req.query;
+    let query = {};
+
+    if (search) {
+        query.title = { $regex: search, $options: 'i' };
+    }
+
+    if (category) {
+        const allowedCategories = ['men', 'women', 'girls'];
+        if (allowedCategories.includes(category.toLowerCase())) {
+            query.category = category.toLowerCase();
+        }
+    }
+
+    const products = await Products.find(query);
     res.status(200).send({
         status: true,
         datas: products
@@ -33,6 +50,7 @@ exports.getProducts = async (req, res) => {
 };
 // get single product 
 exports.getProductById = async (req, res) => {
+    console.log("-> productController -> getProductById");
     const id = req.params.id || req.query.id;
 
     if (!id) {
@@ -50,6 +68,7 @@ exports.getProductById = async (req, res) => {
 }
 //updateProduct
 exports.updateProduct = async (req, res) => {
+    console.log("-> productController -> updateProduct");
     const id = req.params.id || req.query.id;
     if (!id) {
         return res.status(400).send({ status: false, message: 'ID is required' });
@@ -66,6 +85,7 @@ exports.updateProduct = async (req, res) => {
     }
 }
 exports.deleteProduct = async (req, res) => {
+    console.log("-> productController -> deleteProduct");
     const id = req.params.id || req.query.id;
     if (!id) {
         return res.status(400).send({ status: false, message: 'ID is required' });
