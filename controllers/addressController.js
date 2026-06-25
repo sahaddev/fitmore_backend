@@ -3,8 +3,8 @@ let Address = require("../models/addressModel");
 // Create Address
 exports.createAddress = async (req, res) => {
     console.log("-> addressController -> createAddress");
-    const { pincode, city, state, country, build_name, street_name, area, user_id } = req.body;
-    if (!pincode || !city || !state || !country || !build_name || !street_name || !area || !user_id) {
+    const { phonenumber, pincode, city, state, country, build_name, street_name, area, user_id } = req.body;
+    if (!phonenumber || !pincode || !city || !state || !country || !build_name || !street_name || !area || !user_id) {
         return res.status(400).send({ status: false, message: 'All fields required' });
     }
     const count = await Address.countDocuments();
@@ -17,7 +17,8 @@ exports.createAddress = async (req, res) => {
         build_name,
         street_name,
         area,
-        user_id
+        user_id,
+        phonenumber
     });
     res.status(201).send({ status: true, message: "address created successfully", address });
 }
@@ -69,20 +70,15 @@ exports.updateAddress = async (req, res) => {
         return res.status(400).send({ status: false, message: 'ID is required' });
     }
 
-    const query = !isNaN(id) ? { id: Number(id) } : { _id: id };
-    try {
-        // Remove _id and id from body so we don't try to update immutable fields
-        const updateData = { ...req.body };
-        delete updateData._id;
-        delete updateData.id;
 
-        const address = await Address.findOneAndUpdate(query, updateData, { returnDocument: 'after' });
+    try {
+        const address = await Address.findOneAndUpdate({ id: id }, req.body, { returnDocument: 'after' });
         if (!address) {
             return res.status(404).send({ status: false, message: 'address not found' });
         }
-        res.status(200).send({ status: true, message: 'address updated successfully', address });
+        res.status(200).send({ status: true, address });
     } catch (error) {
-        res.status(400).send({ status: false, message: 'Invalid ID format or address not found', error: error.message });
+        res.status(400).send({ status: false, message: 'Invalid ID format or address not found' });
     }
 }
 
