@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 // CREATE
 exports.createUser = async (req, res) => {
   console.log("-> userController -> createUser");
@@ -14,12 +15,14 @@ exports.createUser = async (req, res) => {
     return res.status(400).send({ status: false, message: 'User Already exists' });
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   const userCount = await User.countDocuments();
   const user = await User.create({
     id: userCount + 1,
     username: username,
     email: email,
-    password: password,
+    password: hashedPassword,
     profile_image: profile_image || null,
     phone_number: phone_number || null,
     ordersCount: 0,
@@ -99,4 +102,39 @@ exports.deleteUser = async (req, res) => {
   } catch (error) {
     res.status(400).send({ status: false, message: 'Invalid ID format or User not found' });
   }
-}; 
+};
+
+
+exports.updatePassword = async (req, res) => {
+  console.log('update password');
+  const id = req.params.id || req.query.id;
+  const { old_password, new_password } = req.body;
+
+  if (!id) {
+    return res.status(400).send({ status: false, message: "ID is required" });
+  }
+
+  if (!old_password || !new_password) {
+    return res.status(400).send({ status: false, message: 'old and new password requied' });
+  }
+
+  try {
+    const query = !isNaN(id) ? { id: Number(id) } : { _id: id };
+    const user = await User.findOne(query);
+    if (!user) {
+      return res.status(400).send({ status: false, message: 'User not found' });
+    }
+    const isMatch = await bcrypt.compare(old_password, user.password);
+    if (!isMatch) {
+      return res.status(400).send({ status: false, message: 'Incorrect old password' });
+    }
+    user.password = await bcrypt.hash(new_password, 10);
+    await user.save();
+
+    const userResponse = user.toObject();
+    delete userResponse.password;
+    res.status(200).send({ status: true, message: 'Password updated successfully', userResponse });
+  } catch (error) {
+    res.status(400).send({ status: false, message: 'Invalid ID format or Error occurred' });
+  }
+}

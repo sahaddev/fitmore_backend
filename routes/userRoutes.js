@@ -7,7 +7,8 @@ const {
     getUsers,
     getUserById,
     updateUser,
-    deleteUser
+    deleteUser,
+    updatePassword
 } = require('../controllers/userController');
 
 
@@ -16,5 +17,6 @@ router.get('/users', authMiddleware, getUsers);
 router.get('/user', authMiddleware, getUserById);
 router.put('/user', authMiddleware, updateUser);
 router.delete('/user', authMiddleware, deleteUser);
+router.patch('/user', authMiddleware, updatePassword)
 
 module.exports = router;
