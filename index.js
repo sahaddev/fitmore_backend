@@ -12,6 +12,7 @@ const addressRoutes = require('./routes/addressRoutes');
 const authRoutes = require('./routes/authRoutes');
 const bannerRoutes = require('./routes/bannerRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
@@ -20,6 +21,7 @@ app.use('/api', addressRoutes);
 app.use('/api', authRoutes);
 app.use('/api', bannerRoutes);
 app.use('/api', notificationRoutes);
+app.use('/api', cartRoutes);
 
 const connectDB = require('./config/db');
 
