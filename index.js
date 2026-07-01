@@ -14,6 +14,7 @@ const bannerRoutes = require('./routes/bannerRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const favoriteRoutes = require('./routes/favoriteRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
@@ -24,6 +25,7 @@ app.use('/api', bannerRoutes);
 app.use('/api', notificationRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', favoriteRoutes);
+app.use('/api', orderRoutes);
 
 const connectDB = require('./config/db');
 
